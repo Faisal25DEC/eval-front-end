@@ -41,7 +41,7 @@ const Todos = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await axios.post(`${baseUrl}todos/create`, formData, {
+      const data = await axios.post(`${baseUrl}/todos/create`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
