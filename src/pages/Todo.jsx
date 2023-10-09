@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, Navigate, useParams } from "react-router-dom";
 const token = JSON.parse(localStorage.getItem("token"));
+const baseUrl = "https://long-jade-cape-buffalo-shoe.cyclic.app";
+
 const Todo = () => {
   const [isDeleted, setDeleted] = useState(false);
   const [formData, setFormData] = useState({
@@ -12,7 +14,7 @@ const Todo = () => {
   const [todo, setTodo] = useState({});
   const getTodo = async () => {
     console.log(token);
-    const todo = await axios.get(`http://localhost:8080/todos/${todoId}`, {
+    const todo = await axios.get(`${baseUrl}/todos/${todoId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -42,7 +44,7 @@ const Todo = () => {
     e.preventDefault();
     try {
       const data = await axios.put(
-        `http://localhost:8080/todos/update/${todoId}`,
+        `${baseUrl}/todos/update/${todoId}`,
         formData,
         {
           headers: {
@@ -58,14 +60,11 @@ const Todo = () => {
 
   const deleteTodo = async () => {
     try {
-      const todo = await axios.delete(
-        `http://localhost:8080/todos/delete/${todoId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const todo = await axios.delete(`${baseUrl}/todos/delete/${todoId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setDeleted(true);
     } catch (err) {
       console.log(err);

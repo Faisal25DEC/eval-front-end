@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 
 const token = JSON.parse(localStorage.getItem("token"));
+const baseUrl = "https://long-jade-cape-buffalo-shoe.cyclic.app";
+
 const Todos = () => {
   const [loggedIn, setLoggedIn] = useState(true);
   const [formData, setFormData] = useState({
@@ -39,22 +41,18 @@ const Todos = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await axios.post(
-        "http://localhost:8080/todos/create",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const data = await axios.post(`${baseUrl}todos/create`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       getTodos();
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    let url = "http://localhost:8080/todos?";
+    let url = `${baseUrl}/todos?`;
     if (tag) {
       url = `${url}tag=${tag}`;
     }

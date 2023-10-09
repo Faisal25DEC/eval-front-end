@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
+const baseUrl = "https://long-jade-cape-buffalo-shoe.cyclic.app";
 const Login = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
@@ -19,15 +20,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await axios.post(
-        "http://localhost:8080/users/login",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const data = await axios.post(`${baseUrl}/users/login`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log(data);
       setLoggedIn(true);
       localStorage.setItem("token", JSON.stringify(data.data.token));
