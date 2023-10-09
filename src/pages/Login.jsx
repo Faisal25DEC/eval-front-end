@@ -32,9 +32,9 @@ const Login = () => {
       console.log(err);
     }
   };
-  //   if (loggedIn) {
-  //     return <Navigate to="/" />;
-  //   }
+  if (loggedIn) {
+    return <Navigate to="/" />;
+  }
   return (
     <div>
       <form action="" onSubmit={handleSubmit}>
